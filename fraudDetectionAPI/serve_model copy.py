@@ -11,7 +11,7 @@ app = Flask(__name__)
 model_base_path = os.getenv("MODEL_BASE_PATH", "./models/")
 print(f"Model base path set to: {model_base_path}")
 
-# Load the model paths
+# Load the model paths with updated paths
 model_names = {
     "Logistic Regression": os.path.join(model_base_path, "Logistic Regression_model.pkl"),
     "Decision Tree": os.path.join(model_base_path, "Decision Tree_model.pkl"),
@@ -24,7 +24,7 @@ model_names = {
 # Print model paths for verification
 print(f"Model paths: {model_names}")
 
-# Load the scaler
+# Load the scaler with updated path
 scaler_path = os.path.join(model_base_path, 'scaler.pkl')
 try:
     scaler = joblib.load(scaler_path)
