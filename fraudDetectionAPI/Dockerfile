@@ -1,26 +1,17 @@
-# Use an official Python runtime as a parent image
 FROM python:3.8-slim
 
-# Set the working directory in the container
+# Set working directory
 WORKDIR /app
 
-# Copy requirements.txt separately to leverage Docker caching
-COPY requirements.txt requirements.txt
+# Install required packages
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libatlas-base-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install Python dependencies with timeout to avoid network issues
-RUN pip install --no-cache-dir --timeout=100 -r requirements.txt
-
-# Copy the rest of the application code
+# Copy your application code
 COPY . .
 
-# Expose port 5000
+# Expose the port
 EXPOSE 5000
 
-# Run the correct application file
+# Command to run the application
 CMD ["python", "serve_model.py"]
